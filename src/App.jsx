@@ -1,35 +1,44 @@
-import { calculateInvestmentResults, formatter } from "./util/investment.js";
+import { useState } from "react";
 
 import Header from "./util/components/Header/Header";
 import Result from "./util/components/Result/Result";
 import UserInput from "./util/components/UserInput/UserInput";
 
-const dummyData = calculateInvestmentResults({
-  initialInvestment: 15000,
-  annualInvestment: 900,
-  expectedReturn: 5.5,
-  duration: 12,
-});
-console.log(dummyData);
-
-const handleUserInput = (event) => {
-  if (event.target.id === "initial") {
-    console.log(event.target.value + "initial");
-  } else if (event.target.id === "annual") {
-    console.log(event.target.value + "annual");
-  } else if (event.target.id === "expected") {
-    console.log(event.target.value + "expected");
-  } else {
-    console.log(event.target.value + "duration");
-  }
-};
-
 const App = () => {
+  const [investmentData, setInvestmentData] = useState({
+    initialInvestment: 0,
+    annualInvestment: 0,
+    expectedReturn: 0,
+    duration: 0,
+  });
+
+  const handleUserInput = (event) => {
+    setInvestmentData((prevData) => {
+      const updatedData = { ...prevData };
+      const input = parseFloat(event.target.value);
+
+      if (event.target.id === "initial") {
+        updatedData.initialInvestment = input;
+      } else if (event.target.id === "annual") {
+        updatedData.annualInvestment = input;
+      } else if (event.target.id === "expected") {
+        updatedData.expectedReturn = input;
+      } else {
+        updatedData.duration = input;
+      }
+
+      return updatedData;
+    });
+  };
+
+  const calculatable =
+    investmentData.initialInvestment > 0 && investmentData.duration > 0;
+
   return (
     <>
       <Header />
-      <UserInput onUserInput={handleUserInput} />
-      <Result investmentResults={dummyData} />
+      <UserInput userInput={investmentData} onUserInput={handleUserInput} />
+      {calculatable ? <Result investmentResults={investmentData} /> : <></>}
     </>
   );
 };
