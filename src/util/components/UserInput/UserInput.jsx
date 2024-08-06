@@ -1,24 +1,24 @@
-const UserInput = () => {
+const UserInput = ({ onUserInput }) => {
   return (
     <section id="user-input">
       <div className="input-group">
         <p>
           <label>initial investment</label>
-          <input type="number"></input>
+          <input id="initial" type="number" onChange={onUserInput}></input>
         </p>
         <p>
-          <label>initial investment</label>
-          <input type="number"></input>
+          <label>annual investment</label>
+          <input id="annual" type="number" onChange={onUserInput}></input>
         </p>
       </div>
       <div className="input-group">
         <p>
-          <label>initial investment</label>
-          <input type="number"></input>
+          <label>expected return</label>
+          <input id="expected" type="number" onChange={onUserInput}></input>
         </p>
         <p>
-          <label>initial investment</label>
-          <input type="number"></input>
+          <label>duration</label>
+          <input id="duration" type="number" onChange={onUserInput}></input>
         </p>
       </div>
     </section>
