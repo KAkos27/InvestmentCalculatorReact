@@ -32,7 +32,9 @@ const App = () => {
   };
 
   const calculatable =
-    investmentData.initialInvestment > 0 && investmentData.duration > 0;
+    investmentData.initialInvestment > 0 &&
+    investmentData.duration > 0 &&
+    investmentData.expectedReturn > 0;
 
   return (
     <>
